@@ -1,12 +1,13 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
-  before_action :not_error, only: [:edit, :update]
+  before_action :not_error, only: [:edit, :update, :destroy]
 
   def new
     @book = Book.new
   end
   def show
     @book = Book.find(params[:id])
+    @book_new = Book.new
     @user = current_user
     @book_comment = BookComment.new
     @book_comments = @book.book_comments

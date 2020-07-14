@@ -10,7 +10,36 @@
 		<th>introduction</th>
 		<th><%= user.introduction %></th>
 	</tr>
+	<tr>
+		<th>followes:</th>
+		<th><%= link_to user.follower.count, following_user_path(user) %></th>
+	</tr>
+	<tr>
+		<th>followers:</th>
+		<th><%= link_to user.followed.count, followers_user_path(user) %></th>
+		<!-- <th><% unless user == current_user %>
+			  <% if current_user.following?(user) %>
+			    <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
+			  <% else %>
+			    <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+			  <% end %>
+			<% end %>
+		</th> -->
+	</tr>
 </table>
+
+<% unless current_user == user %>
+<% if current_user.following?(user) %>
+	<%= form_for(current_user.follower.find_by(followed_id: user.id), url:unfollow_path(user.id), html: { method: :delete }) do |f| %>
+	  <%= f.submit "フォロー外す", class: "btn btn-large follow-btn" %>
+	<% end %>
+<% else %>
+	<%= form_for(current_user.follower.build(followed_id: user.id), url:follow_path(user.id)) do |f| %>
+	  <div><%= f.hidden_field :follower_id %></div>
+	  <%= f.submit "フォローする", class: "btn btn-large btn-primary follow-btn" %>
+	<% end %>
+<% end %>
+<% end %>
 
 <div class="row">
 	<%= link_to '', edit_user_path(current_user.id), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>

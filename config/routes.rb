@@ -10,7 +10,13 @@ Rails.application.routes.draw do
   	resource :favorites, only: [:create, :destroy]
   end
   devise_for :users
-  resources :users,only: [:show,:index,:edit,:update]
+  resources :users,only: [:show,:index,:edit,:update] do
+  	member do
+  get :following, :followers
+  end
+  end
+  post 'follow/:id' => 'relationships#create', as: 'follow' # フォローする
+  delete 'unfollow/:id' => 'relationships#destroy', as: 'unfollow' # フォロー外す
   root 'home#top'
   get 'home/about'
 end
