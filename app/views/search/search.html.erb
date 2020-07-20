@@ -1,0 +1,34 @@
+
+
+<% if @user_or_book == "1"%>
+    <h1>Users search for "#{search}"</h1>
+    <table>
+        <% @users.each do |user| %>
+        <thead>
+            <tr>
+                <th></th>
+                <th><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %> </th>
+                <th><%= user.name %></th>
+              
+                <th><%= link_to "Show", user_path(user), class: "user_#{user.id}" %></th>
+            </tr>
+        </thead>
+        <% end %>
+    </table>
+
+<% elsif @user_or_book == "2" %>
+    <h2>Book</h2>
+    <table>
+    <% @books.each do |book| %>
+        <thead>
+            <tr>
+                <th></th>
+                <th><%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %> </th>
+                <th><%= book.title %></th>
+                <th><%= book.body %></th>
+            </tr>
+        </thead>
+    <% end %>
+    </table>
+<% else %>
+<% end %>

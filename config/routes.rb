@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   delete 'unfollow/:id' => 'relationships#destroy', as: 'unfollow' # フォロー外す
   root 'home#top'
   get 'home/about'
+  get '/search' => 'search#search'
 end

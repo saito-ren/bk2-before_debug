@@ -38,4 +38,21 @@ end
 def following?(user)
   following_user.include?(user)
 end
+
+# 検索機能
+def User.search(search, user_or_book, how_search)
+  if user_or_book == "1"
+      if how_search == "1"
+              User.where(['name LIKE ?', "%#{search}%"])
+      elsif how_search == "2"
+              User.where(['name LIKE ?', "%#{search}"])
+      elsif how_search == "3"
+              User.where(['name LIKE ?', "#{search}%"])
+      elsif how_search == "4"
+              User.where(['name LIKE ?', "#{search}"])
+      else
+              User.all
+      end
+  end
+end
 end
