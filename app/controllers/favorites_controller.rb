@@ -5,7 +5,7 @@ class FavoritesController < ApplicationController
 		@book = Book.find(params[:book_id])
 		favorites = @book.favorites.new(user_id: current_user.id)
 		favorites.save
-		redirect_to request.referer
+		# redirect_to request.referer
 	end
 
 	# def create
@@ -24,8 +24,7 @@ class FavoritesController < ApplicationController
 		@book = Book.find(params[:book_id])
 		favorites = @book.favorites.find_by(user_id: current_user.id)
 		favorites.destroy
-		redirect_to request.referer
-		# redirect_to books_path(@book)
+		# redirect_to request.referer
 	end
 
 	# def destroy
